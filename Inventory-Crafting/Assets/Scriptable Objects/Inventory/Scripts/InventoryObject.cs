@@ -2,35 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="New Inventory", menuName ="Inventory System/Inventory")]
+[CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory System/Inventory")]
 public class InventoryObject : ScriptableObject
 {
-    public List<InventorySlot> Container = new List<InventorySlot>();
-    public void AddItem(ItemObject item, int amount)
+    public ItemDatabaseObject database;
+    public Inventory Container;
+    public void AddItem(Item item, int amount)
     {
-        bool hasItem = false;
-        for (int i = 0; i < Container.Count; i++)
+        for (int i = 0; i < Container.Items.Count; i++)
         {
-            if (Container[i].item == item) // checks if ítem is already in the inventory
+            if (Container.Items[i].item.id == item.id) // checks if item is already in the inventory
             {
-                Container[i].AddAmount(amount); // adds amount to existing item
-                hasItem = true;
-                break;
+                Container.Items[i].AddAmount(amount); // adds amount to existing item
+                return;
             }
         }
-        if (!hasItem)
-        {
-            Container.Add(new InventorySlot(item, amount));
-        }
+        Container.Items.Add(new InventorySlot(item.id,item, amount));
     }
+}
+
+[System.Serializable]
+public class Inventory
+{
+    public List<InventorySlot> Items = new List<InventorySlot>();
 }
 [System.Serializable]
 public class InventorySlot // combines a given item in a slot with an amount
 {
-    public ItemObject item;
+    public int id;
+    public Item item;
     public int amount;
-    public InventorySlot(ItemObject item, int amount)
+    public InventorySlot(int id, Item item, int amount)
     {
+        this.id = id;
         this.item = item;
         this.amount = amount;
     }

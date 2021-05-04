@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f2e083cb771f74489ad45b8be4f412, type: 3}
   m_Name: Potion
   m_EditorClassIdentifier: 
-  prefab: {fileID: 159568521557424702, guid: 3527cf5a912033e44bf6d01f2fb615e2, type: 3}
+  id: 1
+  uiDisplay: {fileID: 21300000, guid: de6bb42a16dfe6d46b85efadc08c6d30, type: 3}
   type: 0
+  description: 
   healthRestoredAmount: 50
