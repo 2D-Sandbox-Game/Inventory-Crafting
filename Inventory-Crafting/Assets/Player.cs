@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public InventoryObject inventory; // carries the player's inventory
+    public GameObject createableItem;
+    public ItemDatabaseObject database;
     
     /// <summary>
     /// On collision add item to players inventory
@@ -18,6 +20,21 @@ public class Player : MonoBehaviour
         {
             inventory.AddItem(new Item(item.item), 1); // adds item to the inventory
             Destroy(other.gameObject); // deletes the item as it is now in the inventory
+        }
+    }
+    Vector3 vec = new Vector3(2, 2);
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            for (int i = 0; i < database.Items.Length; i++)
+            {
+                if ("Dirt" == database.Items[i].name)
+                {
+                    Instantiate(createableItem, transform.localPosition + vec, Quaternion.identity);
+                    createableItem.GetComponent<GroundItem>().item = database.Items[i];
+                }
+            }
         }
     }
     private void OnApplicationQuit() // clears the inventory after the game is quit

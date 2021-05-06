@@ -1,10 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-public class GroundItem : MonoBehaviour
+public class GroundItem : MonoBehaviour, ISerializationCallbackReceiver
 {
+    // item GameObject must have a 2D Collider with trigger turned on
+
     public ItemObject item; // holds the item component
 
-    // item GameObject must have a 2D Collider with trigger turned on
+    public void OnAfterDeserialize()
+    {
+    }
+
+    public void OnBeforeSerialize()
+    {
+        GetComponentInChildren<SpriteRenderer>().sprite = item.uiDisplay;
+        EditorUtility.SetDirty(GetComponentInChildren<SpriteRenderer>());
+        
+    }
+
+   
 }

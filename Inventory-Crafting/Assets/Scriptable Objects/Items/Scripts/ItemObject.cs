@@ -22,9 +22,9 @@ public class Item
 {
     public string name;
     public int id;
-    public Item(ItemObject item)
+    public Item(ItemObject itemObject)
     {
-        name = item.name;
-        id = item.id;
+        name = itemObject.name;
+        id = itemObject.id;
     }
 }
